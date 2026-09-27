@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:drive.google.com)",
+      "WebFetch(domain:www.dropbox.com)",
+      "WebFetch(domain:uc0acbada6182300d7b8a080e6e0.dl.dropboxusercontent.com)"
+    ]
+  }
+}

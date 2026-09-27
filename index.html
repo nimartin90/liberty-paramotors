@@ -1,0 +1,331 @@
+¡Entendido! He dado un giro total a la web. Ya no es un restaurante de hamburguesas, sino una **Landing Page de Alta Gama para Lyberty Paramotors**. 
+
+He adaptado todo el concepto deportivo al mundo del vuelo: colores industriales, tipografía fuerte y, lo más importante, **he implementado un Visor 360° interactivo** para que el cliente pueda ver el chasis desde todos los ángulos usando las fotos que me enviaste.
+
+Aquí tienes el código completo y actualizado. Cópialo todo en tu `index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyberty Paramotors | Libertad en el Aire</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#F7F4EE',       // Crema Industrial
+                            primary: '#E85A24',  // Naranja Seguridad / Vuelo
+                            secondary: '#1A1A1A',// Negro Carbono
+                            accent: '#FFFFFF',
+                        }
+                    },
+                    fontFamily: {
+                        athletic: ['"Bebas Neue"', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F7F4EE; color: #1A1A1A; }
+        .font-athletic { font-family: 'Bebas Neue', sans-serif; }
+        .glass { background: rgba(247, 244, 238, 0.8); backdrop-filter: blur(12px); }
+        .product-card:hover .product-img { transform: scale(1.1); }
+        .product-img { transition: transform 0.4s ease; }
+        
+        /* Estilos para el Visor 360 */
+        #viewer-360 {
+            cursor: grab;
+            user-select: none;
+        }
+        #viewer-360:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="font-body">
+
+    <!-- CONFIGURACIÓN DEL SITIO -->
+    <script>
+        const SITE_CONFIG = {
+            brand: {
+                name: "LYBERTY PARAMOTORS",
+                logoUrl: null,
+                ctaText: "Consultar Ahora",
+                whatsappLink: "https://wa.me/123456789",
+            },
+            navigation: [
+                { name: "Inicio", link: "#hero" },
+                { name: "Chasis", link: "#chasis" },
+                { name: "Equipos", link: "#equipos" },
+                { name: "Contacto", link: "#contact" },
+            ],
+            hero: {
+                title: "VOLAR SIN NOSOTROS NO ES VOLAR",
+                subtitle: "Ingeniería de precisión para quienes buscan la libertad absoluta en el cielo. Disfruta el vuelo como se debe.",
+                btnPrimary: "Ver Catálogo",
+                btnSecondary: "Soporte Técnico",
+                mainImage: "images/1.jpg", // Imagen frontal del chasis
+            },
+            chasis360: {
+                title: "EXPERIENCIA 360°",
+                subtitle: "Arrastra la imagen para rotar el chasis y examinar cada detalle de la construcción.",
+                images: [
+                    "images/1.jpg", // 0°
+                    "images/2.jpg", // 90°
+                    "images/3.jpg", // 180°
+                    "images/4.jpg", // 270°
+                ]
+            },
+            products: {
+                categories: ["Todo", "Chasis", "Motores", "Accesorios"],
+                items: [
+                    { name: "Chasis Lyberty Pro", cat: "Chasis", price: "Consultar", desc: "Aluminio aeroespacial, ultra ligero y resistente.", img: "images/1.jpg" },
+                    { name: "Motor Performance X", cat: "Motores", price: "Consultar", desc: "Máxima potencia y eficiencia térmica.", img: "images/2.jpg" },
+                    { name: "Kit de Seguridad", cat: "Accesorios", price: "250€", desc: "Arnés reforzado y sistemas de emergencia.", img: "images/3.jpg" },
+                    { name: "Hélice Carbono", cat: "Accesorios", price: "400€", desc: "Fibra de carbono para mayor empuje.", img: "images/4.jpg" },
+                ]
+            },
+            footer: {
+                hours: "Lunes a Viernes: 09:00 AM - 06:00 PM",
+                address: "Taller de Vuelo Lyberty, Aeródromo Central",
+                copyright: "© 2026 Lyberty Paramotors. Freedom in the Sky."
+            }
+        };
+    </script>
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 glass border-b border-brand-primary/10">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div id="logo-container" class="flex items-center gap-2"></div>
+            <ul id="nav-menu" class="hidden md:flex items-center gap-8 font-semibold text-sm uppercase tracking-widest text-brand-secondary"></ul>
+            <button onclick="handleCTA()" class="bg-brand-primary text-white font-athletic text-xl px-6 py-2 rounded-full hover:bg-brand-secondary transition-all transform hover:scale-105 shadow-lg shadow-brand-primary/30">
+                <span id="cta-text"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden px-6">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-athletic text-[20vw] text-brand-primary/5 select-none pointer-events-none z-0">LYBERTY</div>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8">
+                <h1 id="hero-title" class="font-athletic text-7xl md:text-9xl leading-none text-brand-secondary"></h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl text-brand-secondary/70 max-w-md font-medium leading-relaxed"></p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="handleCTA()" id="hero-btn-1" class="bg-brand-primary text-white font-athletic text-2xl px-8 py-4 rounded-lg hover:bg-brand-secondary transition-all transform hover:-translate-y-1 shadow-xl"></button>
+                    <button onclick="document.getElementById('chasis').scrollIntoView()" id="hero-btn-2" class="border-2 border-brand-secondary text-brand-secondary font-athletic text-2xl px-8 py-4 rounded-lg hover:bg-brand-secondary hover:text-white transition-all transform hover:-translate-y-1"></button>
+                </div>
+            </div>
+            <div class="relative flex justify-center">
+                <div class="absolute -z-10 w-72 h-72 bg-brand-primary/20 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse-slow"></div>
+                <img id="hero-img" src="" alt="Lyberty Chasis" class="w-full max-w-lg h-auto animate-float drop-shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- VISOR 360° SECTION -->
+    <section id="chasis" class="py-24 bg-brand-secondary text-brand-bg overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 id="v360-title" class="font-athletic text-6xl md:text-8xl mb-4"></h2>
+            <p id="v360-subtitle" class="text-brand-bg/60 mb-12 max-w-2xl mx-auto text-lg"></p>
+            
+            <!-- Contenedor del Visor -->
+            <div class="relative max-w-2xl mx-auto bg-brand-bg/5 rounded-3xl p-8 border border-brand-bg/10">
+                <div id="viewer-360" class="relative aspect-square w-full flex justify-center items-center overflow-hidden rounded-2xl">
+                    <img id="view-img" src="" alt="360 View" class="max-w-full h-auto pointer-events-none">
+                </div>
+                <div class="mt-6 flex justify-center items-center gap-4 text-brand-bg/40 text-sm font-medium">
+                    <i class="fas fa-arrows-alt"></i> 
+                    <span>Arrastra para rotar el equipo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipos / Productos -->
+    <section id="equipos" class="py-24 px-6 bg-brand-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-athletic text-6xl md:text-8xl mb-6 text-brand-secondary">EQUIPAMIENTO</h2>
+                <div id="category-filters" class="flex flex-wrap justify-center gap-4"></div>
+            </div>
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-brand-secondary text-brand-bg py-20 px-6 relative">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
+            <div class="space-y-6">
+                <h3 class="font-athletic text-4xl text-brand-primary">LYBERTY PARAMOTORS</h3>
+                <p class="text-brand-bg/60 leading-relaxed">Ingeniería aplicada al vuelo libre. <br><strong>Libertad sin límites.</strong></p>
+                <div class="flex gap-4 text-2xl">
+                    <a href="#" class="text-brand-bg hover:text-brand-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-brand-bg hover:text-brand-primary transition-colors"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <h3 class="font-athletic text-4xl">Contacto</h3>
+                <p id="footer-hours" class="text-brand-bg/60"></p>
+                <p id="footer-address" class="text-brand-bg/60"></p>
+            </div>
+            <div class="space-y-6">
+                <h3 class="font-athletic text-4xl">Ubicación</h3>
+                <div class="w-full h-48 bg-brand-bg/10 rounded-2xl flex items-center justify-center text-brand-bg/40 border border-brand-bg/20">
+                    <i class="fas fa-map-marker-alt mr-2 text-brand-primary"></i> Mapa disponible pronto
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-brand-bg/10 text-center text-brand-bg/40 text-sm">
+            <p id="footer-copy"></p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Lógica de Renderizado ---
+        function initSite() {
+            // Header
+            document.getElementById('logo-container').innerHTML = `<span class="font-athletic text-3xl text-brand-secondary tracking-tighter">${SITE_CONFIG.brand.name}</span>`;
+            document.getElementById('nav-menu').innerHTML = SITE_CONFIG.navigation.map(item => 
+                `<li><a href="${item.link}" class="hover:text-brand-primary transition-colors uppercase">${item.name}</a></li>`
+            ).join('');
+            document.getElementById('cta-text').innerText = SITE_CONFIG.brand.ctaText;
+
+            // Hero
+            document.getElementById('hero-title').innerText = SITE_CONFIG.hero.title;
+            document.getElementById('hero-subtitle').innerText = SITE_CONFIG.hero.subtitle;
+            document.getElementById('hero-btn-1').innerText = SITE_CONFIG.hero.btnPrimary;
+            document.getElementById('hero-btn-2').innerText = SITE_CONFIG.hero.btnSecondary;
+            document.getElementById('hero-img').src = SITE_CONFIG.hero.mainImage;
+
+            // Visor 360
+            document.getElementById('v360-title').innerText = SITE_CONFIG.chasis360.title;
+            document.getElementById('v360-subtitle').innerText = SITE_CONFIG.chasis360.subtitle;
+            document.getElementById('view-img').src = SITE_CONFIG.chasis360.images[0];
+
+            // Products
+            const filterCont = document.getElementById('category-filters');
+            filterCont.innerHTML = SITE_CONFIG.products.categories.map(cat => 
+                `<button onclick="filterProducts('${cat}')" class="cat-btn px-6 py-2 rounded-full border-2 border-brand-secondary font-semibold transition-all hover:bg-brand-secondary hover:text-white ${cat === 'Todo' ? 'bg-brand-secondary text-white' : ''}">${cat}</button>`
+            ).join('');
+            renderProducts('Todo');
+
+            // Footer
+            document.getElementById('footer-hours').innerText = SITE_CONFIG.footer.hours;
+            document.getElementById('footer-address').innerText = SITE_CONFIG.footer.address;
+            document.getElementById('footer-copy').innerText = SITE_CONFIG.footer.copyright;
+        }
+
+        function renderProducts(category) {
+            const grid = document.getElementById('product-grid');
+            const filtered = category === 'Todo' ? SITE_CONFIG.products.items : SITE_CONFIG.products.items.filter(p => p.cat === category);
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card bg-white p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all border border-brand-primary/5 group">
+                    <div class="overflow-hidden rounded-2xl mb-6 bg-brand-bg">
+                        <img src="${p.img}" alt="${p.name}" class="product-img w-full h-64 object-cover">
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-athletic text-3xl">${p.name}</h3>
+                        <span class="text-brand-primary font-bold text-xl">${p.price}</span>
+                    </div>
+                    <p class="text-brand-secondary/60 text-sm mb-6 line-clamp-2">${p.desc}</p>
+                    <button onclick="handleCTA()" class="w-full py-3 rounded-xl bg-brand-secondary text-white font-semibold hover:bg-brand-primary transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-cart-plus"></i> Consultar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-secondary', 'text-white');
+                if (btn.innerText === cat) btn.classList.add('bg-brand-secondary', 'text-white');
+            });
+            renderProducts(cat);
+        }
+
+        function handleCTA() { window.open(SITE_CONFIG.brand.whatsappLink, '_blank'); }
+
+        // --- Lógica Visor 360 ---
+        const viewer = document.getElementById('viewer-360');
+        const img360 = document.getElementById('view-img');
+        const imgs = SITE_CONFIG.chasis360.images;
+        let currentImgIndex = 0;
+        let isDragging = false;
+        let startX = 0;
+
+        viewer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX;
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const x = e.pageX;
+            const diff = x - startX;
+            
+            // Cambiar imagen cada 50px de arrastre
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    currentImgIndex = (currentImgIndex + 1) % imgs.length;
+                } else {
+                    currentImgIndex = (currentImgIndex - 1 + imgs.length) % imgs.length;
+                }
+                img360.src = imgs[currentImgIndex];
+                startX = x; // Resetear punto de inicio para el siguiente cambio
+            }
+        });
+
+        // Soporte táctil para móviles
+        viewer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX;
+        });
+        window.addEventListener('touchend', () => { isDragging = false; });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const x = e.touches[0].pageX;
+            const diff = x - startX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) currentImgIndex = (currentImgIndex + 1) % imgs.length;
+                else currentImgIndex = (currentImgIndex - 1 + imgs.length) % imgs.length;
+                img360.src = imgs[currentImgIndex];
+                startX = x;
+            }
+        });
+
+        window.onload = initSite;
+    </script>
+</body>
+</html>
+```
